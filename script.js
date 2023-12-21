@@ -35,62 +35,58 @@ const drawPokemon = (pokemon) => {
     const pWeight = document.createElement("p");
     const typeBtn = document.createElement("button");
 
-  
-//3. ASIGNAR UN COLOR A CADA TIPO DE POKEMON
-//Agrego un color a cada tipo de pokemon con la constante typeColors. Y añado los atributos de las imágenes de los Pokemon.
-const typeColors = {
-  normal: "#A8A877",
-  fighting: "#c52020",
-  flying: "#b02890",
-  poison: "#97269f",
-  ground: "#E0C068",
-  rock: "#757538",
-  bug: "#507f54",
-  ghost: "#af96c1",
-  steel: "#a6a68",
-  fire: "#db661e",
-  water: "#2880d3",
-  grass: "#178e66",
-  electric: "#a9b11b",
-  psychic: "#e888dd",
-  ice: "#82e0ee",
-  dragon: "#8508d2",
-  dark: "#705848",
-  fairy: "#ce92c2",
-};
+    //3. ASIGNAR UN COLOR A CADA TIPO DE POKEMON
+    //Agrego un color a cada tipo de pokemon con la constante typeColors. Y añado los atributos de las imágenes de los Pokemon.
+    const typeColors = {
+      normal: "#A8A877",
+      fighting: "#c52020",
+      flying: "#b02890",
+      poison: "#97269f",
+      ground: "#E0C068",
+      rock: "#757538",
+      bug: "#507f54",
+      ghost: "#af96c1",
+      steel: "#a6a687",
+      fire: "#db661e",
+      water: "#2880d3",
+      grass: "#178e66",
+      electric: "#a9b11b",
+      psychic: "#e888dd",
+      ice: "#82e0ee",
+      dragon: "#8508d2",
+      dark: "#705848",
+      fairy: "#ce92c2",
+    };
 
-img.setAttribute("src", poke.sprites.back_shiny);
-img.setAttribute("alt", poke.name);
+    img.setAttribute("src", poke.sprites.back_shiny);
+    img.setAttribute("alt", poke.name);
 
+    // 4. EVENT LISTENER
+    // El escuchador de eventos hace que las tarjetas interaccionen y cambién de foto y de opacidad con el mouseover/mouseout.
+    img.addEventListener("mouseover", () => {
+      img.src = poke.sprites.front_default;
+      div.style.borderColor = typeColors[type];
+      div.style.borderWidth = "6px";
+      typeBtn.style.filter = "grayscale(0%)";
+      pHeight.style.color = "black";
+      pWeight.style.color = "black";
+    });
 
-// 4. EVENT LISTENER
-// El escuchador de eventos hace que las tarjetas interaccionen y cambién de foto y de opacidad con el mouseover/mouseout.
-img.addEventListener("mouseover", () => {
-  img.src = poke.sprites.front_default;
-  img.style.backgroundColor = typeColors[type];
-  div.style.borderColor = typeColors[type];
-  div.style.borderWidth = "6px";
-  typeBtn.style.filter = "grayscale(0%)";
-  pHeight.style.color = "black";
-  pWeight.style.color = "black";
-});
+    img.addEventListener("mouseout", () => {
+      img.src = poke.sprites.back_shiny;
+      img.style.backgroundColor = "#ffffff";
+      div.style.borderColor = "gray";
+      div.style.border = "2px solid";
+      pHeight.style.color = "gray";
+      pWeight.style.color = "gray";
 
-img.addEventListener("mouseout", () => {
-  img.src = poke.sprites.back_shiny;
-  img.style.backgroundColor = "#ffffff";
+      typeBtn.style.filter = "grayscale(60%)";
+    });
 
-  div.style.borderColor = "gray";
-  div.style.border = "2px solid";
-  pHeight.style.color = "gray";
-  pWeight.style.color = "gray";
+    //5. CONTENIDO Y ESTILO DE LOS BOTONES Y LOS PÁRRAFOS.
+    // Extraigo el tipo de cada Pokemon y lo pongo en el el botón. También extraigo la altura, peso y nombre para rellenar los párrafos y el h4. Además con la constante de los colores que he hecho antes asigno un color a cada botón. También pongo más estilos al botón, a los párrafos y al div. Por último añado todo al HTML.
 
-  typeBtn.style.filter = "grayscale(60%)";
-});
-
-//5. CONTENIDO Y ESTILO DE LOS BOTONES Y LOS PÁRRAFOS.
-// Extraigo el tipo de cada Pokemon y lo pongo en el el botón. También extraigo la altura, peso y nombre para rellenar los párrafos y el h4. Además con la constante de los colores que he hecho antes asigno un color a cada botón. También pongo más estilos al botón, a los párrafos y al div. Por último añado todo al HTML.
-
-// Contenido y estilo de los botones. 
+    // Contenido y estilo de los botones.
     for (const type of poke.types) {
       const typeButton = document.createElement("button");
       typeButton.textContent = type.type.name;
@@ -101,20 +97,21 @@ img.addEventListener("mouseout", () => {
       typeBtn.appendChild(typeButton);
     }
 
-  // Contenido y estilos de los párrafos.
+    // Contenido y estilos de los párrafos.
     pHeight.textContent = `Height: ${poke.height / 10} m`;
     pHeight.style.color = "gray";
     pWeight.textContent = `Weight: ${poke.weight / 10} kg`;
     pWeight.style.color = "gray";
     h4.textContent = poke.name;
-   
-     const type = poke.types[0].type.name;
 
- // Estilo del div.
+    const type = poke.types[0].type.name;
+    console.log(type)
+
+    // Estilo del div.
     div.style.borderRadius = "5vh";
     div.style.border = "2px solid";
 
-   // Añadiendo todos estos elementos al HTML.
+    // Añadiendo todos estos elementos al HTML.
     div.appendChild(h4);
     div.appendChild(img);
     div.appendChild(pHeight);
@@ -139,7 +136,7 @@ const filterPokemon = (pokemon) => {
   );
   drawPokemon(filteredPokemon);
 };
-
+// Filtra y da un nuevo array solo con los pokemons filtrados por nombre.
 const paintFilter = (pokemon) => {
   let input$$ = document.createElement("input");
   input$$.setAttribute("type", "text");
@@ -147,21 +144,24 @@ const paintFilter = (pokemon) => {
   input$$.addEventListener("input", () => filterPokemon(pokemon));
   document.body.appendChild(input$$);
 };
-// Filtra y da un nuevo array solo con los pokemons filtrados por nombre. 
+
+
+//7. FILTRAR POKEMON POR TIPO
+// Primero comprueba que si el primer tipo coincide con el tipo del botón, si no coincide comprueba si el poke tiene un segundo tipo y si en ese caso coincide con el botón.
 const filterPokemonByType = (type, pokemon) => {
   const filteredPokemon = pokemon.filter(
-    (poke) => poke.types[0].type.name === type
+    (poke) =>
+      poke.types[0].type.name === type ||
+      poke.types[1] && poke.types[1].type.name === type
   );
   return filteredPokemon;
 };
-
-//7. FILTRAR POKEMON POR TIPO
-// El event listener hace que cuando se haga click en el botón filtre por el tipo de Pokemon correspondiente. Solo filtra por el tipo primario de cada Pokemon.  BUSCAR SOLUCIÓN!! Tiene que filtrar ambos tipos y encontrar la manera de no hacer 18 filtros. bucle for¿? if/else¿?
+// El event listener para cada botón hace que cuando se haga click en el botón filtre por el tipo de Pokemon correspondiente. Solo filtra por el tipo primario de cada Pokemon.  BUSCAR SOLUCIÓN!!Encontrar la manera de no hacer 18 funciones. bucle for¿? if/else¿?
 const paintFilterAll = (pokemon) => {
   const allButton = document.querySelector("#all");
 
   allButton.addEventListener("click", () => {
-    const filteredPokemon = pokemon; 
+    const filteredPokemon = pokemon;
     drawPokemon(filteredPokemon);
   });
 };
@@ -322,7 +322,6 @@ const paintFilterFairy = (pokemon) => {
 // 8. FUNCION INIT
 
 const init = async () => {
-
   const pokemon = await getPokemon();
   console.log(pokemon);
 
@@ -354,24 +353,3 @@ const init = async () => {
 
 // Llama a la función Init para empezar todo
 init();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

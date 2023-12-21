@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 .nav #logo_pokedex {
   width: 150px;
-  margin-left: 7vh;
+  margin-left: 6vh;
 }
 
 .nav ul {
@@ -184,7 +184,7 @@ input:focus {
   height: 3vh;
   border: none;
   border-radius: 5vh;
-  color: #ffffff;
+  color: #fdfeff;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
@@ -200,8 +200,12 @@ input:focus {
   margin-right: 2px;
 }
 
+.loadingGif {
+  margin-left: 75vh;
+}
+
 * {
-  background-color: "#ffffff";
+  background-color: "#f0f0f0";
 }
 
 * {
