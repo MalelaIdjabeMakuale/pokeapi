@@ -97,24 +97,32 @@ const drawPokemon = (pokemon) => {
       typeBtn.style.filter = "grayscale(60%)";
     });
 
+    for (const type of poke.types) {
+      const typeButton = document.createElement("button");
+      typeButton.textContent = type.type.name;
+      typeButton.style.backgroundColor = typeColors[type.type.name];
+      typeButton.style.borderColor = typeColors[type.type.name];
+      typeButton.style.borderWidth = "2px";
+      typeBtn.appendChild(typeButton);
+    }
+
     const type = poke.types[0].type.name;
-    console.log(type);
-    // console.log(type); //BUSCAR PARA QUE ME SALGAN LOS DOS TIPOS Y NO SÓLO UNO
 
-    //Hacer que los bordes del div sean del color del tipo de pokemon.
-
+    // Make the borders of the div be the color of the first type
     div.style.borderRadius = "5vh";
     div.style.border = "2px solid";
 
     pHeight.textContent = `Height: ${poke.height / 10} m`;
     pHeight.style.color = "gray";
-    pWeight.textContent = `Weight: ${poke.weight / 10} kg`;
-    pWeight.style.color = "gray";
-    typeBtn.textContent = `${type}`;
+    pWeight.textContent = `Weight: ${poke.Weight / 10} kg`;
     h4.textContent = poke.name;
-    typeBtn.style.backgroundColor = typeColors[type];
     typeBtn.style.filter = "grayscale(60%)";
 
+    div.appendChild(h4);
+    div.appendChild(img);
+    div.appendChild(pHeight);
+    div.appendChild(pWeight);
+    div.appendChild(typeBtn);
     div.appendChild(h4);
     div.appendChild(img);
     div.appendChild(pHeight);
