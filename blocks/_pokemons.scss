@@ -15,12 +15,10 @@
   height: 200px;
   object-fit: cover;
   object-position: top;
-  /* background-color: #E9E7E7; */
   border: none;
   filter: grayscale(50%);
   opacity: 40%;
 }
-/* Mirar lo de las transiciones */
 
 .pokemon img:hover {
   filter: none;
@@ -55,3 +53,6 @@
 .pokemon p {
   font-size: 12px;
 }
+
+.pokemon button { font-size: 12px;
+margin-right: 2px;}

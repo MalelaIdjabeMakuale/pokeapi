@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 .nav #logo_pokedex {
-  width: 250px;
-  margin-left: 75vh;
+  width: 150px;
+  margin-left: 7vh;
 }
 
 .nav ul {
@@ -27,12 +27,6 @@ header button {
   font-size: 12px;
   font-weight: bold;
   transition: all 0.3s ease 0s;
-}
-
-header img {
-  height: 10vh;
-  justify-self: center;
-  margin-left: 100vh;
 }
 
 header button:hover {
@@ -160,13 +154,11 @@ input:focus {
      object-fit: cover;
   -o-object-position: top;
      object-position: top;
-  /* background-color: #E9E7E7; */
   border: none;
   filter: grayscale(50%);
   opacity: 40%;
 }
 
-/* Mirar lo de las transiciones */
 .pokemon img:hover {
   filter: none;
   opacity: 100%;
@@ -201,6 +193,11 @@ input:focus {
 
 .pokemon p {
   font-size: 12px;
+}
+
+.pokemon button {
+  font-size: 12px;
+  margin-right: 2px;
 }
 
 * {

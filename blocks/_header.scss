@@ -1,6 +1,6 @@
 .nav #logo_pokedex {
-  width: 250px;
-  margin-left: 75vh;
+  width: 150px;
+  margin-left: 7vh;
 }
 .nav ul {
   display: flex;
@@ -26,12 +26,6 @@ header button {
   font-size: 12px;
   font-weight: bold;
   transition: all 0.3s ease 0s;
-}
-
-header img {
-  height: 10vh;
-  justify-self: center;
-  margin-left: 100vh;
 }
 header button:hover {
   width: 17vh;

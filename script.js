@@ -1,17 +1,7 @@
-// USAR INNER HTML
-// ¿?Poner pantalla de carga para esperar ¿?
-// La función init es el guion de las funciones .Pone el orden por el cual se ejecutan las funciones
-
-// TO DO:
-// // cambiar fuente
-// girar y hacer que se vean las stats (event listenerclik), crear otro innerHTML para que repetir la misma estructura en todos?
-//hacer que los botones del nav sirvan como busqueda (filter, map?)
-//
-
-// Array vacío y lo voy llenando con los pokemons que extraigo del bucle for. Añado i al hacer fetch porque así .
+// 1. HACER EL ARRAY DE POKEMON
+// Array vacío y lo voy llenando con los pokemons que extraigo con el fetch. Añado i al hacer fetch porque así va haciendo vueltas.
 // La función es asíncrona para que no mande una petición hasta que esté resuelta la anterior.
 //Try y Catch devuelven el resultado o un error al hacer la función y return devuelve el Array de pokemons lleno en forma de objeto (json)
-
 const getPokemon = async (id) => {
   const pokemonArray = []; //Existe en todo el código
 
@@ -30,14 +20,8 @@ const getPokemon = async (id) => {
   return pokemonArray;
 };
 
-// PONER ORDEN A ESTA PARTE
-//PINTAR LOS POKEMON, DIV Y ESTRUCTURA GENERAL
-//DRAW POKEMON define una función con un argumento llamado pokemon y añade los elementos al HTML para cada pokemon (h4, p, botón y lo que surja)
-// INNER HTML crea un HTML desde Javascript
-// El BUCLE FOR (poke of pokemon va completando todo en cada vuelta hasta 150) sirve para crear la misma estructura en todos los pokemons de la lista.
-//APPENDCHILD sirve para colocarlo en el lugar que quieras, en el bucle for añado un EVENT LISTENER para que cambie la foto con el mouse over, mouse out. También añado un EVENT LISTENER
-//Creo la constante typeColors para que a cada ID le corresponda un color. En el mouseover le meto el color de fondo cuando está encima el ratón. y en el botón del tipo también se lo meto.
-
+// 2. CREAR INNER HTML Y ESTRUCTURA
+//Creo con INNNER HTML el contenedero de los pokemon un div en el que un BUCLE FOR hace que se repita la estructura para todo el Array de pokemons.
 const drawPokemon = (pokemon) => {
   const div$$ = document.querySelector(".pokemon");
   div$$.innerHTML = "";
@@ -51,73 +35,86 @@ const drawPokemon = (pokemon) => {
     const pWeight = document.createElement("p");
     const typeBtn = document.createElement("button");
 
-    const typeColors = {
-      normal: "#A8A877",
-      fighting: "#c52020",
-      flying: "#b02890",
-      poison: "#97269f",
-      ground: "#E0C068",
-      rock: "#757538",
-      bug: "#507f54",
-      ghost: "#af96c1",
-      steel: "#a6a68",
-      fire: "#db661e",
-      water: "#2880d3",
-      grass: "#178e66",
-      electric: "#a9b11b",
-      psychic: "#e888dd",
-      ice: "#82e0ee",
-      dragon: "#8508d2",
-      dark: "#705848",
-      fairy: "#ce92c2",
-    };
+  
+//3. ASIGNAR UN COLOR A CADA TIPO DE POKEMON
+//Agrego un color a cada tipo de pokemon con la constante typeColors. Y añado los atributos de las imágenes de los Pokemon.
+const typeColors = {
+  normal: "#A8A877",
+  fighting: "#c52020",
+  flying: "#b02890",
+  poison: "#97269f",
+  ground: "#E0C068",
+  rock: "#757538",
+  bug: "#507f54",
+  ghost: "#af96c1",
+  steel: "#a6a68",
+  fire: "#db661e",
+  water: "#2880d3",
+  grass: "#178e66",
+  electric: "#a9b11b",
+  psychic: "#e888dd",
+  ice: "#82e0ee",
+  dragon: "#8508d2",
+  dark: "#705848",
+  fairy: "#ce92c2",
+};
 
-    img.setAttribute("src", poke.sprites.back_shiny);
-    img.setAttribute("alt", poke.name);
+img.setAttribute("src", poke.sprites.back_shiny);
+img.setAttribute("alt", poke.name);
 
-    img.addEventListener("mouseover", () => {
-      img.src = poke.sprites.front_default;
-      // img.style.backgroundColor = typeColors[type];
-      div.style.borderColor = typeColors[type];
-      div.style.borderWidth = "6px";
-      typeBtn.style.filter = "grayscale(0%)";
-      pHeight.style.color = "black";
-      pWeight.style.color = "black";
-    });
 
-    img.addEventListener("mouseout", () => {
-      img.src = poke.sprites.back_shiny;
-      img.style.backgroundColor = "#ffffff";
+// 4. EVENT LISTENER
+// El escuchador de eventos hace que las tarjetas interaccionen y cambién de foto y de opacidad con el mouseover/mouseout.
+img.addEventListener("mouseover", () => {
+  img.src = poke.sprites.front_default;
+  img.style.backgroundColor = typeColors[type];
+  div.style.borderColor = typeColors[type];
+  div.style.borderWidth = "6px";
+  typeBtn.style.filter = "grayscale(0%)";
+  pHeight.style.color = "black";
+  pWeight.style.color = "black";
+});
 
-      div.style.borderColor = "gray";
-      div.style.border = "2px solid";
-      pHeight.style.color = "gray";
-      pWeight.style.color = "gray";
+img.addEventListener("mouseout", () => {
+  img.src = poke.sprites.back_shiny;
+  img.style.backgroundColor = "#ffffff";
 
-      typeBtn.style.filter = "grayscale(60%)";
-    });
+  div.style.borderColor = "gray";
+  div.style.border = "2px solid";
+  pHeight.style.color = "gray";
+  pWeight.style.color = "gray";
 
+  typeBtn.style.filter = "grayscale(60%)";
+});
+
+//5. CONTENIDO Y ESTILO DE LOS BOTONES Y LOS PÁRRAFOS.
+// Extraigo el tipo de cada Pokemon y lo pongo en el el botón. También extraigo la altura, peso y nombre para rellenar los párrafos y el h4. Además con la constante de los colores que he hecho antes asigno un color a cada botón. También pongo más estilos al botón, a los párrafos y al div. Por último añado todo al HTML.
+
+// Contenido y estilo de los botones. 
     for (const type of poke.types) {
       const typeButton = document.createElement("button");
       typeButton.textContent = type.type.name;
       typeButton.style.backgroundColor = typeColors[type.type.name];
       typeButton.style.borderColor = typeColors[type.type.name];
-      typeButton.style.borderWidth = "2px";
+      typeButton.style.borderWidth = "0px";
+      typeBtn.style.filter = "grayscale(90%)";
       typeBtn.appendChild(typeButton);
     }
 
-    const type = poke.types[0].type.name;
+  // Contenido y estilos de los párrafos.
+    pHeight.textContent = `Height: ${poke.height / 10} m`;
+    pHeight.style.color = "gray";
+    pWeight.textContent = `Weight: ${poke.weight / 10} kg`;
+    pWeight.style.color = "gray";
+    h4.textContent = poke.name;
+   
+     const type = poke.types[0].type.name;
 
-    // Make the borders of the div be the color of the first type
+ // Estilo del div.
     div.style.borderRadius = "5vh";
     div.style.border = "2px solid";
 
-    pHeight.textContent = `Height: ${poke.height / 10} m`;
-    pHeight.style.color = "gray";
-    pWeight.textContent = `Weight: ${poke.Weight / 10} kg`;
-    h4.textContent = poke.name;
-    typeBtn.style.filter = "grayscale(60%)";
-
+   // Añadiendo todos estos elementos al HTML.
     div.appendChild(h4);
     div.appendChild(img);
     div.appendChild(pHeight);
@@ -133,10 +130,8 @@ const drawPokemon = (pokemon) => {
   }
 };
 
-// HERRAMIENTAS PARA FILTRAR LOS POKEMONS
-//  FILTER sirve para hacer que se pueda buscar por nombre.
-// PAINT FILTER es la función que crea el input que permitirá buscar.
-// los botones filtran por ID(tipo de pokemon)
+// 6. FILTRAR POKEMON POR NOMBRE
+//  Creo el filtro para buscar pokemon por nombre y el event listener para que el filtro reaccione al input.
 const filterPokemon = (pokemon) => {
   let input$$ = document.querySelector("input");
   const filteredPokemon = pokemon.filter((poke) =>
@@ -152,7 +147,7 @@ const paintFilter = (pokemon) => {
   input$$.addEventListener("input", () => filterPokemon(pokemon));
   document.body.appendChild(input$$);
 };
-
+// Filtra y da un nuevo array solo con los pokemons filtrados por nombre. 
 const filterPokemonByType = (type, pokemon) => {
   const filteredPokemon = pokemon.filter(
     (poke) => poke.types[0].type.name === type
@@ -160,7 +155,8 @@ const filterPokemonByType = (type, pokemon) => {
   return filteredPokemon;
 };
 
-
+//7. FILTRAR POKEMON POR TIPO
+// El event listener hace que cuando se haga click en el botón filtre por el tipo de Pokemon correspondiente. Solo filtra por el tipo primario de cada Pokemon.  BUSCAR SOLUCIÓN!! Tiene que filtrar ambos tipos y encontrar la manera de no hacer 18 filtros. bucle for¿? if/else¿?
 const paintFilterAll = (pokemon) => {
   const allButton = document.querySelector("#all");
 
@@ -323,26 +319,9 @@ const paintFilterFairy = (pokemon) => {
   });
 };
 
-// const FirePokemon = (pokemon) => {
-//   const filteredPokemonFire = pokemon.filter((poke) => poke.types[0].type.name.includes(`fire`));
-//   return filteredPokemonFire;
-// };
-// console.log(FirePokemon)
+// 8. FUNCION INIT
 
-// const type = poke.types[0].type.name;
-
-//  1. Init sirve de hoja de ruta. Se van poniendo las funciones que van a ser llamadas para que se ejecuten.
-//  2. Init llama a la función Init y arranca todo.(?) Intentar poner la
 const init = async () => {
-  // const loadingDiv = document.createElement('div');
-  // loadingDiv.classList.add('loading');
-  // loadingDiv.innerHTML = `<img src="./utils/img/loading_gif.gif" />`;
-  // document.body.appendChild(loadingDiv);
-
-  // const timer = setTimeout(() => {
-  //   loadingDiv.remove();
-
-  //   }, 18000);
 
   const pokemon = await getPokemon();
   console.log(pokemon);
@@ -373,6 +352,7 @@ const init = async () => {
   drawPokemon(pokemon);
 };
 
+// Llama a la función Init para empezar todo
 init();
 
 
