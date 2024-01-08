@@ -1,3 +1,8 @@
+// INTENTAR PONER ANIMACIÓN PARA CUANDO ESTÉ CARGANDO
+// HACER NAVBAR FIJO
+// PARA RESPONSIVE QUITAR BOTONES Y HACER UNA hamburgues 
+
+
 // 1. HACER EL ARRAY DE POKEMON
 // Array vacío y lo voy llenando con los pokemons que extraigo con el fetch. Añado i al hacer fetch porque así va haciendo vueltas.
 // La función es asíncrona para que no mande una petición hasta que esté resuelta la anterior.
@@ -58,7 +63,7 @@ const drawPokemon = (pokemon) => {
       fairy: "#ce92c2",
     };
 
-    img.setAttribute("src", poke.sprites.back_shiny);
+    img.setAttribute("src", poke.sprites.back_default);
     img.setAttribute("alt", poke.name);
 
     // 4. EVENT LISTENER
@@ -73,7 +78,7 @@ const drawPokemon = (pokemon) => {
     });
 
     img.addEventListener("mouseout", () => {
-      img.src = poke.sprites.back_shiny;
+      img.src = poke.sprites.back_default;
       img.style.backgroundColor = "#ffffff";
       div.style.borderColor = "gray";
       div.style.border = "2px solid";

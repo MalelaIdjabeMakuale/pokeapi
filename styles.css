@@ -200,10 +200,6 @@ input:focus {
   margin-right: 2px;
 }
 
-.loadingGif {
-  margin-left: 75vh;
-}
-
 * {
   background-color: "#f0f0f0";
 }
