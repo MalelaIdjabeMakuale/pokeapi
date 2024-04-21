@@ -3,24 +3,43 @@
 // PARA RESPONSIVE QUITAR BOTONES Y HACER UNA hamburgues 
 
 
-// 1. HACER EL ARRAY DE POKEMON
-// Array vacío y lo voy llenando con los pokemons que extraigo con el fetch. Añado i al hacer fetch porque así va haciendo vueltas.
-// La función es asíncrona para que no mande una petición hasta que esté resuelta la anterior.
-//Try y Catch devuelven el resultado o un error al hacer la función y return devuelve el Array de pokemons lleno en forma de objeto (json)
-const getPokemon = async (id) => {
-  const pokemonArray = []; //Existe en todo el código
+// 1. Función para mostrar el loader
+const showLoader = () => {
+  const loader = document.createElement("img");
+  loader.classList.add("loader");
+  loader.setAttribute("src", "/utils/img/gif_loading.gif");
+  loader.style.position = "fixed";
+  loader.style.top = "70%";
+  loader.style.left = "50%";
+  loader.style.transform = "translate(-50%, -50%)";
+  document.body.appendChild(loader);
+};
+
+// 2. Función para ocultar el loader
+const hideLoader = () => {
+  const loader = document.querySelector(".loader");
+  if (loader) {
+    loader.remove();
+  }
+};
+
+// 3. Función para obtener los Pokémon
+const getPokemon = async () => {
+  showLoader(); // Mostrar loader antes de cargar los pokémon
+
+  const pokemonArray = [];
 
   for (let i = 1; i <= 150; i++) {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
-      console.log(response);
       const results = await response.json();
-      console.log(results);
       pokemonArray.push(results);
     } catch (error) {
       console.log(error);
     }
   }
+
+  hideLoader(); // Ocultar loader después de cargar los pokémon
 
   return pokemonArray;
 };
